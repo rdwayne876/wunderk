@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { createBook } from '../api/mutations'
+import { createProduct } from '../api/mutations'
 import config from '../aws-exports'
 
 const {
@@ -13,14 +13,14 @@ const {
 
 const Admin = () => {
     const [image, setImage] = useState(null);
-    const [bookDetails, setBookDetails] = useState({ title: "", description: "", image: "", author: "", price: "" });
+    const [productDetails, setProductDetails] = useState({ name: "", description: "", image: "", price: "" });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (!bookDetails.title || !bookDetails.price) return
-            await API.graphql(graphqlOperation(createBook, { input: bookDetails }))
-            setBookDetails({ title: "", description: "", image: "", author: "", price: "" })
+            if (!productDetails.name || !productDetails.price) return
+            await API.graphql(graphqlOperation(createProduct, { input: productDetails }))
+            setProductDetails({ name: "", description: "", image: "", author: "", price: "" })
         } catch (err) {
             console.log('error creating todo:', err)
         }
@@ -42,7 +42,7 @@ const Admin = () => {
             // Retrieve the uploaded file to display
             const image = await Storage.get(key, { level: 'public' })
             setImage(image);
-            setBookDetails({ ...bookDetails, image: url });
+            setProductDetails({ ...productDetails, image: url });
         } catch (err) {
             console.log(err);
         }
@@ -53,7 +53,7 @@ const Admin = () => {
             <AmplifyAuthenticator>
                 <section>
                     <header className="form-header">
-                        <h3>Add New Book</h3>
+                        <h3>Add New Product</h3>
                         <AmplifySignOut></AmplifySignOut>
                     </header>
                     <form className="form-wrapper" onSubmit={handleSubmit}>
@@ -65,13 +65,13 @@ const Admin = () => {
 
                         </div>
                         <div className="form-fields">
-                            <div className="title-form">
-                                <p><label htmlFor="title">Title</label></p>
+                            <div className="name-form">
+                                <p><label htmlFor="name">Name</label></p>
                                 <p><input
                                     name="email"
-                                    type="title"
-                                    placeholder="Type the title"
-                                    onChange={(e) => setBookDetails({ ...bookDetails, title: e.target.value })}
+                                    type="name"
+                                    placeholder="Type the name"
+                                    onChange={(e) => setProductDetails({ ...productDetails, name: e.target.value })}
                                     required
                                 /></p>
                             </div>
@@ -81,18 +81,8 @@ const Admin = () => {
                                     name="description"
                                     type="text"
                                     rows="8"
-                                    placeholder="Type the description of the book"
-                                    onChange={(e) => setBookDetails({ ...bookDetails, description: e.target.value })}
-                                    required
-                                /></p>
-                            </div>
-                            <div className="author-form">
-                                <p><label htmlFor="author">Author</label></p>
-                                <p><input
-                                    name="author"
-                                    type="text"
-                                    placeholder="Type the author's name"
-                                    onChange={(e) => setBookDetails({ ...bookDetails, author: e.target.value })}
+                                    placeholder="Type the description of the product"
+                                    onChange={(e) => setProductDetails({ ...productDetails, description: e.target.value })}
                                     required
                                 /></p>
                             </div>
@@ -101,8 +91,8 @@ const Admin = () => {
                                     <input
                                         name="price"
                                         type="text"
-                                        placeholder="What is the Price of the book (USD)"
-                                        onChange={(e) => setBookDetails({ ...bookDetails, price: e.target.value })}
+                                        placeholder="What is the Price of the product (USD)"
+                                        onChange={(e) => setProductDetails({ ...productDetails, price: e.target.value })}
                                         required
                                     /></p>
                             </div>
@@ -110,8 +100,8 @@ const Admin = () => {
                                 <p><label>Featured?</label>
                                     <input type="checkbox"
                                         className="featured-checkbox"
-                                        checked={bookDetails.featured}
-                                        onChange={() => setBookDetails({ ...bookDetails, featured: !bookDetails.featured })}
+                                        checked={productDetails.featured}
+                                        onChange={() => setProductDetails({ ...productDetails, featured: !productDetails.featured })}
                                     />
                                 </p>
                             </div>

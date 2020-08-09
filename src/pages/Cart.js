@@ -17,13 +17,13 @@ const Cart = () => {
         <h2>My Cart</h2>
       </header>
       <div className="cart-wrapper">
-        {cart.map(({ id, title, price, image, amount }) => (
+        {cart.map(({ id, name, price, image, amount }) => (
           <article key={id} className="cart-item">
             <div className="image">
               <img src={image} alt="cart item" />
             </div>
             <div className="details">
-              <p>{title}</p>
+              <p>{name}</p>
               <p>$ {price}</p>
             </div>
             <div className="amount">

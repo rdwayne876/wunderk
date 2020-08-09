@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BookProvider } from "./context/books";
+import { ProductProvider } from "./context/products";
 import App from './App';
 import './index.css';
 import { CartProvider } from './context/cart';
 
 ReactDOM.render(
-  <BookProvider>
+  <ProductProvider>
     <CartProvider>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </CartProvider>
-  </BookProvider>,
+  </ProductProvider>,
   document.getElementById('root')
 );

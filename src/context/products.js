@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
-import { listBooks } from "../api/queries";
+import { listProducts } from "../api/queries";
 import { processOrder } from "../api/mutations";
 
-const BookContext = React.createContext();
+const ProductContext = React.createContext();
 
-const BookProvider = ({ children }) => {
-  const [books, setBooks] = useState([]);
+const ProductProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchBooks();
+    fetchProducts();
   }, []);
 
   const checkout = async (orderDetails) => {
@@ -28,19 +28,19 @@ const BookProvider = ({ children }) => {
     }
   };
 
-  const fetchBooks = async () => {
+  const fetchProducts = async () => {
     try {
       setLoading(true);
       // Switch authMode to API_KEY for public access
       const { data } = await API.graphql({
-        query: listBooks,
+        query: listProducts,
         authMode: "API_KEY"
       });
-      const books = data.listBooks.items;
-      const featured = books.filter((book) => {
-        return !!book.featured;
+      const products = data.listProducts.items;
+      const featured = products.filter((product) => {
+        return !!product.featured;
       });
-      setBooks(books);
+      setProducts(products);
       setFeatured(featured);
       setLoading(false);
     } catch (err) {
@@ -49,10 +49,10 @@ const BookProvider = ({ children }) => {
   };
 
   return (
-    <BookContext.Provider value={{ books, featured, loading, checkout }}>
+    <ProductContext.Provider value={{ products, featured, loading, checkout }}>
       {children}
-    </BookContext.Provider>
+    </ProductContext.Provider>
   );
 };
 
-export { BookContext, BookProvider };
+export { ProductContext, ProductProvider };

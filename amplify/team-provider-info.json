@@ -1,0 +1,20 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-wunderkrafts-prod-181512-authRole",
+            "UnauthRoleArn": "arn:aws:iam::368766125095:role/amplify-wunderkrafts-prod-181512-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::368766125095:role/amplify-wunderkrafts-prod-181512-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-wunderkrafts-prod-181512-deployment",
+            "UnauthRoleName": "amplify-wunderkrafts-prod-181512-unauthRole",
+            "StackName": "amplify-wunderkrafts-prod-181512",
+            "StackId": "arn:aws:cloudformation:us-east-2:368766125095:stack/amplify-wunderkrafts-prod-181512/060f1530-d516-11ea-ada1-06eba8d6f1ae",
+            "AmplifyAppId": "d3cqw51d16sq27"
+        },
+        "categories": {
+            "auth": {
+                "wunderkrafts8a488805": {}
+            }
+        }
+    }
+}
